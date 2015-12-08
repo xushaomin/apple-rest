@@ -98,8 +98,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
                 future.get(serviceMethodTimeout, TimeUnit.SECONDS);
             }
         } catch (RejectedExecutionException ree) {//超过最大的服务平台的最大资源限制，无法提供服务
-            if (logger.isInfoEnabled()) {
-                logger.info("调用服务方法:" + method + ")，超过最大资源限制，无法提供服务。");
+            if (logger.isErrorEnabled()) {
+                logger.error("调用服务方法:" + method + ")，超过最大资源限制，无法提供服务。");
             }
             RestRequestContext restRequestContext = buildRequestContextWhenException(servletRequest, beginTime);
             MainError invalidMethodError = MainErrors.getError(
@@ -108,8 +108,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
             writeResponse(restResponse, servletResponse);
             fireAfterDoServiceEvent(restRequestContext);
         } catch (TimeoutException e) {//服务时间超限
-            if (logger.isInfoEnabled()) {
-                logger.info("调用服务方法:" + method + ")，服务调用超时。");
+            if (logger.isErrorEnabled()) {
+                logger.error("调用服务方法:" + method + ")，服务调用超时。");
             }
             RestRequestContext restRequestContext = buildRequestContextWhenException(servletRequest, beginTime);
             
@@ -120,8 +120,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
             writeResponse(restResponse, servletResponse);
             fireAfterDoServiceEvent(restRequestContext);
         } catch (Throwable throwable) {//产生未知的错误
-            if (logger.isInfoEnabled()) {
-                logger.info("调用服务方法:" + method + ")，产生异常", throwable);
+            if (logger.isErrorEnabled()) {
+                logger.error("调用服务方法:" + method + ")，产生异常", throwable);
             }
             RestRequestContext restRequestContext = buildRequestContextWhenException(servletRequest, beginTime);
             
@@ -594,8 +594,8 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
             try {
                 restResponse = serviceMethodAdapter.invokeServiceMethod(restRequest);
             } catch (Exception e) { //出错则招聘服务不可用的异常
-                if (logger.isInfoEnabled()) {
-                    logger.info("调用" + context.getMethod() + "时发生异常，异常信息为：" + e.getMessage());
+                if (logger.isErrorEnabled()) {
+                    logger.error("调用" + context.getMethod() + "时发生异常，异常信息为：" + e.getMessage());
                     e.printStackTrace();
                 }
                 MainError invalidMethodError = MainErrors.getError(
