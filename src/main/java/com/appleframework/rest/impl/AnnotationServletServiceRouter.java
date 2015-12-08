@@ -394,9 +394,9 @@ public class AnnotationServletServiceRouter implements ServiceRouter {
                 	MainError invalidMethodError = null;
                 	ErrorResponse restResponse = null;
                 	
-                    if (logger.isDebugEnabled()) {
+                    if (logger.isErrorEnabled()) {
                         String message = java.text.MessageFormat.format("service {0} call error", method);
-                        logger.debug(message,e);
+						logger.error(message, e);
                     }
                     
                 	if(e.getCause().getClass().equals(UnrecognizedPropertyException.class)
