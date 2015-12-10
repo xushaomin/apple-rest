@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.*;
 public class SuccessResponse {
 
     @XmlAttribute
-    protected Integer flag = 1;
+    protected Integer flag = 0;
 
     @XmlElement
     protected String msg = "ok";

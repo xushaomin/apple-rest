@@ -24,7 +24,7 @@ public class ErrorResponse {
     protected Integer flag = 1;
 
     @XmlElement
-    protected String msg = "ok";
+    protected String msg = "error";
 
 	public Integer getFlag() {
 		return flag;
