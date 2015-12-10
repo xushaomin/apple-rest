@@ -14,7 +14,7 @@ import com.appleframework.rest.response.ErrorResponse;
  * @author 陈雄华
  * @version 1.0
  */
-public class DefaultCompositeResponse<T> implements CompositeResponse {
+public class DefaultCompositeResponse<T> implements CompositeResponse<Object> {
 
     private boolean successful;
 

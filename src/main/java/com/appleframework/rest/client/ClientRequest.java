@@ -47,7 +47,7 @@ public interface ClientRequest {
      * @param <T>
      * @return
      */
-    <T> CompositeResponse post(Class<T> restResponseClass, String methodName, String version);
+    <T> CompositeResponse<?> post(Class<T> restResponseClass, String methodName, String version);
 
     /**
      * 直接使用 restRequest发送请求
@@ -58,7 +58,7 @@ public interface ClientRequest {
      * @param <T>
      * @return
      */
-    <T> CompositeResponse post(RestRequest restRequest, Class<T> restResponseClass, String methodName, String version);
+    <T> CompositeResponse<?> post(RestRequest restRequest, Class<T> restResponseClass, String methodName, String version);
 
     /**
      * 使用GET发送服务请求
@@ -68,7 +68,7 @@ public interface ClientRequest {
      * @param <T>
      * @return
      */
-    <T> CompositeResponse get(Class<T> restResponseClass, String methodName, String version);
+    <T> CompositeResponse<?> get(Class<T> restResponseClass, String methodName, String version);
 
     /**
      * 使用GET发送restRequest的请求
@@ -79,6 +79,6 @@ public interface ClientRequest {
      * @param <T>
      * @return
      */
-    <T> CompositeResponse get(RestRequest restRequest, Class<T> restResponseClass, String methodName, String version);
+    <T> CompositeResponse<?> get(RestRequest restRequest, Class<T> restResponseClass, String methodName, String version);
 }
 

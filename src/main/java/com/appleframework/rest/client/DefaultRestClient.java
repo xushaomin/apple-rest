@@ -42,8 +42,6 @@ public class DefaultRestClient implements RestClient {
     //服务地址
     private String serverUrl;
 
-    private String method;
-
     private RestTemplate restTemplate = new RestTemplate();
 
     private RestUnmarshaller jsonUnmarshaller = new JacksonJsonRestUnmarshaller();
@@ -64,7 +62,6 @@ public class DefaultRestClient implements RestClient {
 
     public DefaultRestClient(String serverUrl, String method, String appSecret) {
         this.serverUrl = serverUrl;
-        this.method = method;
     }
 
    
@@ -145,18 +142,18 @@ public class DefaultRestClient implements RestClient {
         }
 
         @Override
-        public <T> CompositeResponse get(Class<T> restResponseClass, String methodName, String version) {
+        public <T> CompositeResponse<?> get(Class<T> restResponseClass, String methodName, String version) {
             Map<String, String> requestParams = addOtherParamMap(methodName, version);
             return get(restResponseClass, requestParams);
         }
 
         @Override
-        public <T> CompositeResponse get(RestRequest restRequest, Class<T> restResponseClass, String methodName, String version) {
+        public <T> CompositeResponse<?> get(RestRequest restRequest, Class<T> restResponseClass, String methodName, String version) {
             Map<String, String> requestParams = getRequestForm(restRequest, methodName, version);
             return get(restResponseClass, requestParams);
         }
 
-        private <T> CompositeResponse get(Class<T> restResponseClass, Map<String, String> requestParams) {
+        private <T> CompositeResponse<?> get(Class<T> restResponseClass, Map<String, String> requestParams) {
             String responseContent = restTemplate.getForObject(buildGetUrl(requestParams), String.class, requestParams);
             if (logger.isDebugEnabled()) {
                 logger.debug("response:\n" + responseContent);
@@ -169,7 +166,7 @@ public class DefaultRestClient implements RestClient {
             return paramMap;
         }
 
-        private <T> CompositeResponse toCompositeResponse(String content, Class<T> restResponseClass) {
+        private <T> CompositeResponse<?> toCompositeResponse(String content, Class<T> restResponseClass) {
             if(logger.isDebugEnabled()){
                 logger.debug(content);
             }
