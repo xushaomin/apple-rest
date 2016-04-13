@@ -6,10 +6,10 @@ package com.appleframework.rest.client.unmarshaller;
 
 import com.appleframework.rest.RestException;
 import com.appleframework.rest.client.RestUnmarshaller;
-import org.codehaus.jackson.map.AnnotationIntrospector;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 
 import java.io.IOException;
 
@@ -34,17 +34,15 @@ public class JacksonJsonRestUnmarshaller implements RestUnmarshaller {
         }
     }
 
-    private ObjectMapper getObjectMapper() throws IOException {
-        if (JacksonJsonRestUnmarshaller.objectMapper == null) {
-            ObjectMapper objectMapper = new ObjectMapper();
+    @SuppressWarnings("deprecation")
+	private ObjectMapper getObjectMapper() throws IOException {
+        if (objectMapper == null) {
+            objectMapper = new ObjectMapper();            
             AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
-            SerializationConfig serializationConfig = objectMapper.getSerializationConfig();
-            serializationConfig = serializationConfig.without(SerializationConfig.Feature.WRAP_ROOT_VALUE)
-                                                     .withAnnotationIntrospector(introspector);
-            objectMapper.setSerializationConfig(serializationConfig);
-            JacksonJsonRestUnmarshaller.objectMapper = objectMapper;
+            objectMapper.setAnnotationIntrospector(introspector);
+    		objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         }
-        return JacksonJsonRestUnmarshaller.objectMapper;
+        return objectMapper;
     }
 }
 

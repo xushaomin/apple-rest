@@ -12,10 +12,10 @@ import com.appleframework.rest.marshaller.MessageMarshallerUtils;
 import com.appleframework.rest.response.ErrorResponse;
 import com.appleframework.rest.security.*;
 import com.appleframework.rest.security.SecurityManager;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.exc.UnrecognizedPropertyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

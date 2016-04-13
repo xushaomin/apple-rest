@@ -3,16 +3,15 @@
  */
 package com.appleframework.rest.marshaller;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import com.appleframework.rest.MessageFormat;
 import com.appleframework.rest.RestException;
 import com.appleframework.rest.RestRequest;
-import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +36,8 @@ public class MessageMarshallerUtils {
     private static ObjectMapper jsonObjectMapper = new ObjectMapper();
 
     static {
-        SerializationConfig serializationConfig = jsonObjectMapper.getSerializationConfig();
-        serializationConfig = serializationConfig.without(SerializationConfig.Feature.WRAP_ROOT_VALUE)
-                .with(SerializationConfig.Feature.INDENT_OUTPUT);
+    	jsonObjectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        jsonObjectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     }
 
     private static XmlMapper xmlObjectMapper = new XmlMapper();
@@ -107,7 +105,8 @@ public class MessageMarshallerUtils {
      * @param format
      * @return
      */
-    public static String getMessage(Object object, MessageFormat format) {
+    @SuppressWarnings("deprecation")
+	public static String getMessage(Object object, MessageFormat format) {
         if (object == null) {
             return "NONE MSG";
         }
