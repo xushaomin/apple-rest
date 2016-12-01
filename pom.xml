@@ -303,11 +303,11 @@
             </activation>
             <distributionManagement>
                 <repository>
-                    <id>apple-releases</id>
+                    <id>nexus-releases</id>
                     <url>http://mvnrepo.appleframework.com/nexus/content/repositories/releases/</url>
                 </repository>
                 <snapshotRepository>
-                    <id>apple-snapshots</id>
+                    <id>nexus-snapshots</id>
                     <url>http://mvnrepo.appleframework.com/nexus/content/repositories/snapshots/</url>
                 </snapshotRepository>
             </distributionManagement>
